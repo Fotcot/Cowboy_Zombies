@@ -23,6 +23,7 @@ public class Bullet : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(20); // Hacer daño al enemigo
+                Destroy(gameObject);
             }
         }
 
