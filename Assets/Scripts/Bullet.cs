@@ -15,21 +15,22 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, lifeTime); // Autodestrucci�n despu�s de un tiempo
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
-            Enemy enemy = other.GetComponent<Enemy>();
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(20); // Hacer daño al enemigo
-                Destroy(gameObject);
+                enemy.TakeDamage(20);
+                BulletPool.Instance.ReturnBullet(gameObject);
             }
         }
 
-        if (other.CompareTag("Obstacle") || other.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("Wall"))
         {
-            Destroy(gameObject); // Destruir la bala si toca una pared u obstáculo
+            BulletPool.Instance.ReturnBullet(gameObject);
         }
     }
+
 }
