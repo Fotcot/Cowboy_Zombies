@@ -13,8 +13,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log("Zombie recibió daño. Vida restante: " + currentHealth);
-
+        
         if (currentHealth <= 0)
         {
             Die();
@@ -23,7 +22,6 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Zombie eliminado");
-        Destroy(gameObject); // Destruir el enemigo
+        EnemyPool.Instance.ReturnEnemy(gameObject);
     }
 }

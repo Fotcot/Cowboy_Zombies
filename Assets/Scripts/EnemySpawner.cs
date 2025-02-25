@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
     public Transform[] spawnPoints;
     public float spawnInterval = 5f;
+
 
     void Start()
     {
@@ -13,11 +13,16 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        if (spawnPoints.Length == 0 || enemyPrefab == null) return;
+        if (spawnPoints.Length == 0) return;
+
+        GameObject enemy = EnemyPool.Instance.GetEnemy();
+        if (enemy == null) return; // No spawnea si ya hay muchos enemigos
 
         int randomIndex = Random.Range(0, spawnPoints.Length);
         Transform spawnPoint = spawnPoints[randomIndex];
 
-        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        enemy.transform.position = spawnPoint.position;
+        enemy.transform.rotation = Quaternion.identity;
     }
+
 }
