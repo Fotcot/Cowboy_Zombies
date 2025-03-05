@@ -15,7 +15,7 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 desiredPosition = character.position + cameraOffset;
         transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-        transform.LookAt(character);
+        
     }
 }
 
